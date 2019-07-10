@@ -3,6 +3,7 @@ package kpk.dev.model.di
 import dagger.Module
 import dagger.Provides
 import kpk.dev.model.PALMSBET_BASE_URL
+import kpk.dev.model.datasource.remote.PulseLiveAPI
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -25,6 +26,9 @@ class NetworkingModule {
             .build()
     }
 
+    @Provides
+    @Singleton
+    internal fun providePalmsBetApi(retrofit: Retrofit): PulseLiveAPI = retrofit.create(PulseLiveAPI::class.java)
 
     @Provides
     @Singleton

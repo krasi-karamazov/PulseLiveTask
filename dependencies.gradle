@@ -20,11 +20,10 @@ ext {
     designSupportVersion='1.0.0-rc01'
     coordinatorLayoutVersion='1.0.0'
     recyclerViewVersion='1.1.0-alpha06'
-    circleImageViewVersion='3.0.0'
-    picassoVersion='2.71828'
     materialComponentsVersion='1.1.0-alpha07'
     googlePlayServicesVersion='17.0.0'
     room_version = "2.1.0"
+    cardViewVersion = "1.0.0"
 
     //Testing
     jUnitVersion = '4.12'
@@ -39,7 +38,9 @@ ext {
             [configuration: "implementation", dependency: "com.google.dagger:dagger-android:$daggerVersion"],
             [configuration: "implementation", dependency: "com.google.dagger:dagger-android-support:$daggerVersion"],
             [configuration: "kapt", dependency: "com.google.dagger:dagger-android-processor:$daggerVersion"],
+            [configuration: "implementation", dependency:"com.squareup.retrofit2:retrofit:$retrofitVersion"],
             [configuration: "implementation", dependency: "javax.inject:javax.inject:$javaxInjectVersion"],
+            [configuration: "implementation", dependency: "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"],
             [configuration: "implementation", dependency: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"],
             [configuration: "implementation", dependency: "androidx.appcompat:appcompat:$appCompatVersion"],
             [configuration: "implementation", dependency: "androidx.core:core-ktx:$ktxVersion"],
@@ -56,6 +57,7 @@ ext {
 
     presentationDependencies=[
             [configuration: "implementation", dependency:"io.reactivex.rxjava2:rxjava:$rxJavaVersion"],
+            [configuration: "api", dependency:"io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"],
             [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-extensions:$lifeCycleVersion"],
             [configuration: "implementation", dependency: "javax.inject:javax.inject:$javaxInjectVersion"],
             [configuration: "implementation", dependency: "androidx.constraintlayout:constraintlayout:$constraintVersion"],
@@ -69,7 +71,11 @@ ext {
             [configuration: "implementation", dependency: project(":domain")],
             [configuration: "implementation", dependency: project(":model")],
             [configuration: "implementation", dependency: "com.google.dagger:dagger-android:$daggerVersion"],
-            [configuration: "implementation", dependency: "com.google.dagger:dagger-android-support:$daggerVersion"]
+            [configuration: "implementation", dependency: "com.google.dagger:dagger-android-support:$daggerVersion"],
+            [configuration: "kapt", dependency: "com.google.dagger:dagger-android-processor:$daggerVersion"],
+            [configuration: "kapt", dependency: "com.google.dagger:dagger-compiler:$daggerVersion"],
+            [configuration: "implementation", dependency: "com.google.dagger:dagger:$daggerVersion"],
+            [configuration: "implementation", dependency: "androidx.cardview:cardview:$cardViewVersion"]
     ]
 
     presentationTestDependencies=[
@@ -92,6 +98,7 @@ ext {
     ]
 
     modelDependencies=[
+            [configuration: "implementation", dependency:"io.reactivex.rxjava2:rxjava:$rxJavaVersion"],
             [configuration: "implementation", dependency: "com.google.dagger:dagger:$daggerVersion"],
             [configuration: "implementation", dependency:"com.squareup.retrofit2:retrofit:$retrofitVersion"],
             [configuration: "implementation", dependency:"com.squareup.moshi:moshi:$moshiVersion"],
@@ -99,8 +106,10 @@ ext {
             [configuration: "implementation", dependency: "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"],
             [configuration: "implementation", dependency: "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"],
             [configuration: "implementation", dependency: "javax.inject:javax.inject:$javaxInjectVersion"],
-            [configuration: "implementation", dependency: "androidx.room:room-runtime:$room_version"],
-            [configuration: "kapt", dependency: "androidx.room:room-compiler:$room_version"]
+            [configuration: "api", dependency: "androidx.room:room-runtime:$room_version"],
+            [configuration: "kapt", dependency: "androidx.room:room-compiler:$room_version"],
+            [configuration: "kapt", dependency: "com.google.dagger:dagger-compiler:$daggerVersion"],
+            [configuration: "implementation", dependency: "com.google.dagger:dagger:$daggerVersion"]
     ]
 
     modelTestDependencies=[

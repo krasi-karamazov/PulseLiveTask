@@ -1,14 +1,13 @@
 package kpk.dev.model.datasource.remote
 
-import io.reactivex.Single
 import kpk.dev.model.poko.ItemsList
-import retrofit2.Retrofit
+import retrofit2.Response
 import javax.inject.Inject
 
-class ContentListRemoteDataSource @Inject constructor(retrofit: Retrofit): BaseRemoteDataSource(retrofit), IContentListRemoteDataSource {
+class ContentListRemoteDataSource @Inject constructor(val pulseLiveAPI: PulseLiveAPI): IContentListRemoteDataSource {
 
-    override fun getContentList(): Single<ItemsList> {
-        return create(PulseLiveAPI::class.java).getContentList()
+    override fun getContentList(): Response<ItemsList> {
+        return pulseLiveAPI.getContentList().execute()
     }
 
 }

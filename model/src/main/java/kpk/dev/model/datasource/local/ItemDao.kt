@@ -14,6 +14,6 @@ interface ItemDao {
     @Query("SELECT * FROM $ITEMS_TABLE_NAME")
     fun getAll(): List<Item>
 
-    @Query("SELECT * FROM" + ITEMS_TABLE_NAME + "WHERE id=(:id)")
+    @Query("SELECT * FROM $ITEMS_TABLE_NAME WHERE id=(:id)")
     fun getItemById(id: Int): Item
 }

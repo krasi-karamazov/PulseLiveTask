@@ -3,14 +3,10 @@ package kpk.dev.model.poko
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kpk.dev.model.datasource.local.DATE
-import kpk.dev.model.datasource.local.ID
-import kpk.dev.model.datasource.local.SUBTITLE
-import kpk.dev.model.datasource.local.TITLE
+import kpk.dev.model.datasource.local.*
 
-@Entity(tableName = "Items")
-data class Item(
-
+@Entity
+data class ItemDetails(
     @PrimaryKey
     @ColumnInfo(name = ID)
     val id: Int,
@@ -22,5 +18,8 @@ data class Item(
     val subtitle: String,
 
     @ColumnInfo(name = TITLE)
-    val title: String
+    val title: String,
+
+    @ColumnInfo(name = BODY)
+    val body: String
 )

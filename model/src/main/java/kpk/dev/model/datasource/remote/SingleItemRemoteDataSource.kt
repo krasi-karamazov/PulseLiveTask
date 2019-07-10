@@ -2,13 +2,15 @@ package kpk.dev.model.datasource.remote
 
 import io.reactivex.Single
 import kpk.dev.model.poko.Item
-import retrofit2.Retrofit
+import kpk.dev.model.poko.ItemDetails
+import kpk.dev.model.poko.ItemsList
+import retrofit2.Response
 import javax.inject.Inject
 
-class SingleItemRemoteDataSource @Inject constructor(retrofit: Retrofit): BaseRemoteDataSource(retrofit), ISingleItemRemoteDataSource {
+class SingleItemRemoteDataSource @Inject constructor(val pulseLiveAPI: PulseLiveAPI): ISingleItemRemoteDataSource {
 
-    override fun getItem(id: Int): Single<Item> {
-        return retrofit.create(PulseLiveAPI::class.java).getItemById(id)
+    override fun getItem(id: Int): Response<ItemDetails> {
+        return pulseLiveAPI.getItemById(id).execute()
     }
 
 }

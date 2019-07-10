@@ -2,8 +2,9 @@ package kpk.dev.model.datasource.local
 
 import io.reactivex.Single
 import kpk.dev.model.poko.Item
+import javax.inject.Inject
 
-class ItemsLocalDataSource constructor(val itemDao: ItemDao): IItemsLocalDataSource {
+class ItemsLocalDataSource @Inject constructor(val itemDao: ItemDao): IItemsLocalDataSource {
     override fun getAllItems(): Single<List<Item>> {
        return Single.fromCallable { itemDao.getAll() }
     }

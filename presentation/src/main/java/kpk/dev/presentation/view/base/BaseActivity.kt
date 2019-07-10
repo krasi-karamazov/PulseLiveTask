@@ -1,4 +1,4 @@
-package kpk.dev.presentation.base
+package kpk.dev.presentation.view.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -16,8 +16,5 @@ abstract class BaseActivity: AppCompatActivity() {
         setContentView(getLayoutId())
     }
 
-
     protected abstract fun getLayoutId(): Int
-
-    inline fun <reified T: ViewModel> ViewModelFactory.get(): T = ViewModelProviders.of(this@BaseActivity, this)[T::class.java]
 }
