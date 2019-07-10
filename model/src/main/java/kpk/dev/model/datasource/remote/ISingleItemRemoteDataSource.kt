@@ -1,10 +1,8 @@
 package kpk.dev.model.datasource.remote
 
-import io.reactivex.Single
-import kpk.dev.model.poko.Item
-import kpk.dev.model.poko.ItemDetails
+import kpk.dev.model.poko.ItemDetailsContainer
 import retrofit2.Response
 
 interface ISingleItemRemoteDataSource {
-    fun getItem(id: Int): Response<ItemDetails>
+    fun getItem(id: Int): Response<ItemDetailsContainer>
 }

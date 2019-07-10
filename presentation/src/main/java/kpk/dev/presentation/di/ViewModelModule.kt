@@ -6,6 +6,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import kpk.dev.presentation.contentlist.viewmodel.ContentListViewModel
+import kpk.dev.presentation.itemdetails.viewmodel.ItemDetailsViewModel
 import kpk.dev.presentation.viewmodel.factory.ViewModelFactory
 
 @Module
@@ -18,6 +19,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ContentListViewModel::class)
     internal abstract fun bindContentListViewModel(viewModel: ContentListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ItemDetailsViewModel::class)
+    internal abstract fun bindItemDetailsViewModel(viewModel: ItemDetailsViewModel): ViewModel
 
     //Add more ViewModels here
 }

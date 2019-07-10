@@ -1,7 +1,6 @@
 package kpk.dev.model.datasource.local
 
 import io.reactivex.Single
-import kpk.dev.model.poko.Item
 import kpk.dev.model.poko.ItemDetails
 
 interface IItemDetailsLocalDataSource {

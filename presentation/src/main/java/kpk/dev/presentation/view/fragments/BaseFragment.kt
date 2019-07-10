@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.AndroidSupportInjection
+import kpk.dev.presentation.dialog.BaseDialog
+import kpk.dev.presentation.dialog.ErrorDialog
 import kpk.dev.presentation.viewmodel.factory.ViewModelFactory
 
 abstract class BaseFragment: Fragment() {
@@ -25,6 +27,13 @@ abstract class BaseFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+    }
+
+    protected fun displayError(errorMessage: String?) {
+        val bundle = Bundle()
+        bundle.putString(BaseDialog.TITLE_ARG_KEY, "Error")
+        bundle.putString(BaseDialog.MESSAGE_ARG_KEY, errorMessage ?: "An error occurred")
+        ErrorDialog.getInstance(bundle).show(fragmentManager!!, ErrorDialog::class.java.simpleName)
     }
 
     private fun performDI() = AndroidSupportInjection.inject(this)

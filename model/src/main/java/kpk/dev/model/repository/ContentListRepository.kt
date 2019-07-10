@@ -10,9 +10,12 @@ import kpk.dev.model.resource.Resource
 import retrofit2.Response
 import javax.inject.Inject
 
-class ContentListRepository @Inject constructor(val contentListRemoteDataSource: ContentListRemoteDataSource, val itemsLocalDataSource: ItemsLocalDataSource): BaseRepository<List<Item>>() {
+class ContentListRepository @Inject constructor(
+    val contentListRemoteDataSource: ContentListRemoteDataSource,
+    val itemsLocalDataSource: ItemsLocalDataSource
+) {
 
-    override fun getData(isNetworkAvailable:Boolean): Observable<Resource<List<Item>>> {
+    fun getData(isNetworkAvailable: Boolean): Observable<Resource<List<Item>>> {
         return object: NetworkBoundResourse<List<Item>, ItemsList>(isNetworkAvailable) {
             override fun saveCallResult(request: ItemsList) {
                 itemsLocalDataSource.itemDao.insertAll(request.items)

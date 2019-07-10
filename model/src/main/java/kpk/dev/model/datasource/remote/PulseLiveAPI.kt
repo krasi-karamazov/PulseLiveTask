@@ -1,8 +1,6 @@
 package kpk.dev.model.datasource.remote
 
-import io.reactivex.Single
-import kpk.dev.model.poko.Item
-import kpk.dev.model.poko.ItemDetails
+import kpk.dev.model.poko.ItemDetailsContainer
 import kpk.dev.model.poko.ItemsList
 import retrofit2.Call
 import retrofit2.http.GET
@@ -13,5 +11,5 @@ interface PulseLiveAPI {
     fun getContentList(): Call<ItemsList>
 
     @GET("/test/native/content/{id}.json")
-    fun getItemById(@Path("id") id: Int): Call<ItemDetails>
+    fun getItemById(@Path("id") id: Int): Call<ItemDetailsContainer>
 }

@@ -2,32 +2,34 @@ package kpk.dev.model.repository
 
 import io.reactivex.Observable
 import kpk.dev.model.datasource.local.ItemDetailsLocalDataSource
-import kpk.dev.model.datasource.local.ItemsLocalDataSource
-import kpk.dev.model.datasource.remote.ContentListRemoteDataSource
 import kpk.dev.model.datasource.remote.SingleItemRemoteDataSource
-import kpk.dev.model.poko.Item
 import kpk.dev.model.poko.ItemDetails
+import kpk.dev.model.poko.ItemDetailsContainer
 import kpk.dev.model.resource.NetworkBoundResourse
 import kpk.dev.model.resource.Resource
 import retrofit2.Response
 import javax.inject.Inject
 
-class SingleItemRepository @Inject constructor(val singleItemRemoteDataSource: SingleItemRemoteDataSource, val itemDetailsLocalDataSource: ItemDetailsLocalDataSource): BaseRepository<ItemDetails>()  {
+class SingleItemRepository @Inject constructor(
+    val singleItemRemoteDataSource: SingleItemRemoteDataSource,
+    val itemDetailsLocalDataSource: ItemDetailsLocalDataSource
+) {
 
-    override fun getData(isNetworkAvailable: Boolean): Observable<Resource<ItemDetails>> {
-        return object : NetworkBoundResourse<ItemDetails, ItemDetails>(isNetworkAvailable) {
+    fun getData(id: Int, isNetworkAvailable: Boolean): Observable<Resource<ItemDetails>> {
 
-            override fun saveCallResult(request: ItemDetails) {
-                itemDetailsLocalDataSource.itemDetailsDao.insertItem(request)
-            }
-
+        return object : NetworkBoundResourse<ItemDetails, ItemDetailsContainer>(isNetworkAvailable) {
             override fun loadFromDb(): Observable<ItemDetails> {
-                return Observable.fromCallable { itemDetailsLocalDataSource.itemDetailsDao.getItemById(36) }
+                return Observable.fromCallable { itemDetailsLocalDataSource.itemDetailsDao.getItemById(id) }
             }
 
-            override fun createCall(): Observable<Response<ItemDetails>> {
-                return Observable.just(singleItemRemoteDataSource.getItem(36))
+            override fun saveCallResult(request: ItemDetailsContainer) {
+                itemDetailsLocalDataSource.itemDetailsDao.insertItem(request.item)
             }
+
+            override fun createCall(): Observable<Response<ItemDetailsContainer>> {
+                return Observable.just(singleItemRemoteDataSource.getItem(id))
+            }
+
         }.asObservable()
     }
 }

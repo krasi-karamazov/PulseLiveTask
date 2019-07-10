@@ -6,8 +6,9 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import kpk.dev.presentation.R
-import kpk.dev.presentation.view.base.BaseActivity
 import kpk.dev.presentation.contentlist.view.ContentListFragment
+import kpk.dev.presentation.itemdetails.view.ItemDetailsFragment
+import kpk.dev.presentation.view.base.BaseActivity
 import javax.inject.Inject
 
 class MainActivity: BaseActivity(), HasSupportFragmentInjector {
@@ -19,8 +20,37 @@ class MainActivity: BaseActivity(), HasSupportFragmentInjector {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (supportFragmentManager.findFragmentByTag(ContentListFragment::class.java.simpleName) == null) {
+            supportFragmentManager.beginTransaction()
+                .add(
+                    R.id.fl_fragment_cointainer,
+                    ContentListFragment.getInstance(null),
+                    ContentListFragment::class.java.simpleName
+                )
+                .addToBackStack("contentList")
+                .commit()
+        }
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            finish()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    fun displayItemDetails(id: Int) {
+
+        val bundle = Bundle()
+        bundle.putInt(ItemDetailsFragment.ITEM_ID_ARG_KEY, id)
+
         supportFragmentManager.beginTransaction()
-            .add(R.id.fl_fragment_cointainer, ContentListFragment.getInstance(null), "")
+            .add(
+                R.id.fl_fragment_cointainer,
+                ItemDetailsFragment.getInstance(bundle),
+                ItemDetailsFragment::class.java.simpleName
+            )
             .addToBackStack("contentList")
             .commit()
     }
