@@ -2,11 +2,13 @@ package kpk.dev.presentation.itemdetails.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_item_details.*
 import kpk.dev.model.poko.ItemDetails
 import kpk.dev.model.resource.Resource
 import kpk.dev.presentation.R
+import kpk.dev.presentation.extensions.isConnected
 import kpk.dev.presentation.itemdetails.viewmodel.ItemDetailsViewModel
 import kpk.dev.presentation.view.fragments.BaseFragment
 import kpk.dev.presentation.viewmodel.factory.ViewModelFactory
@@ -32,7 +34,7 @@ class ItemDetailsFragment : BaseFragment() {
 
     override fun init() {
         viewModel = vmFactory.get()
-        viewModel.getItemDetails(arguments!!.getInt(ITEM_ID_ARG_KEY), true)
+        viewModel.getItemDetails(arguments!!.getInt(ITEM_ID_ARG_KEY), isConnected(activity as AppCompatActivity))
             .observe(this, Observer {
                 when (it) {
                     is Resource.Loading -> {
