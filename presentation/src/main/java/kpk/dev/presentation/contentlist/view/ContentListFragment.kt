@@ -2,6 +2,7 @@ package kpk.dev.presentation.contentlist.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ import kpk.dev.model.resource.Resource
 import kpk.dev.presentation.R
 import kpk.dev.presentation.contentlist.ContentListAdapter
 import kpk.dev.presentation.contentlist.viewmodel.ContentListViewModel
+import kpk.dev.presentation.extensions.isConnected
 import kpk.dev.presentation.main.MainActivity
 import kpk.dev.presentation.view.fragments.BaseFragment
 import kpk.dev.presentation.viewmodel.factory.ViewModelFactory
@@ -38,7 +40,7 @@ class ContentListFragment : BaseFragment(){
 
     override fun init() {
         viewModel = vmFactory.get()
-        viewModel.getContentList(true)
+        viewModel.getContentList(isConnected(activity as AppCompatActivity))
             .observe(this, Observer {
                 when (it) {
                     is Resource.Loading -> pb_loading_data.visibility = View.VISIBLE
